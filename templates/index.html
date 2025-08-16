@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>X-ray Nesne Tespiti</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #eee;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #ff4444;
+      font-size: 1.6rem;
+    }
+
+    form {
+      margin-top: 1.5rem;
+    }
+
+    input[type="file"] {
+      padding: 0.6rem;
+      border: 2px dashed #ff4444;
+      background: transparent;
+      color: #ff4444;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input[type="submit"] {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #ff4444;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .image-box {
+      width: 180px;
+    }
+
+    .image-box img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid #444;
+    }
+
+    .image-box h3 {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #ff8888;
+    }
+
+    .alert {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      background: #b71c1c;
+      color: #fff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      display: inline-block;
+      box-shadow: 0 0 10px red;
+    }
+
+    @media (max-width: 600px) {
+      .image-box {
+        width: 90%;
+      }
+
+      .image-box img {
+        max-height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>X-ray Görüntüsünde Tehlikeli Nesne Tespiti</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" required>
+    <br />
+    <input type="submit" value="GÖNDER">
+  </form>
+
+  {% if original_image_url and result_image_url %}
+  <div class="image-container">
+    <div class="image-box">
+      <h3>Orijinal</h3>
+      <img src="{{ original_image_url }}" alt="Orijinal Görsel">
+    </div>
+    <div class="image-box">
+      <h3>Sonuç</h3>
+      <img src="{{ result_image_url }}" alt="Tespit Sonucu">
+    </div>
+  </div>
+  {% endif %}
+
+  {% if alert_message %}
+    <div class="alert">
+      ⚠️ Tehlikeli Nesne Tespit Edildi: <strong>{{ alert_message }}</strong>
+    </div>
+  {% endif %}
+
+</body>
+</html>
